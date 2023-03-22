@@ -22,17 +22,21 @@ export function DogContext({ children }) {
       setFavourite(JSON.parse(storedFavourites));
     }
   }, []);
-  const getData = async () => {
-    try {
-      setLoading(false);
-      const response = await fetchDogs();
-      startTransition(() => {
-        setDogs({ url: response.url, byte: response.fileSizeBytes });
+  const getData = () => {
+    fetchDogs()
+      .then((response) => {
+        setLoading(false);
+        startTransition(() => {
+          setDogs({
+            url: response.data.url,
+            byte: response.data.fileSizeBytes,
+          });
+        });
+      })
+      .catch((error) => {
+        setError(error);
+        setLoading(false);
       });
-    } catch (error) {
-      setError(error);
-      setLoading(false);
-    }
   };
 
   const value = {

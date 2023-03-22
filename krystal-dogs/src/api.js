@@ -1,10 +1,12 @@
 import axios from "axios";
 
-export const fetchDogs = async () => {
-  try {
-    const response = await axios.get("https://random.dog/woof.json");
-    return response.data;
-  } catch (error) {
-    return error;
-  }
+export const fetchDogs = () => {
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios.get("https://random.dog/woof.json");
+      resolve(response);
+    } catch {
+      reject(error);
+    }
+  });
 };
