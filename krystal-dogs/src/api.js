@@ -5,7 +5,7 @@ export const fetchDogs = () => {
     try {
       const response = axios.get("https://random.dog/woof.json");
       resolve(response);
-    } catch {
+    } catch (error) {
       reject(error);
     }
   });
